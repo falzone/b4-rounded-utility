@@ -5,9 +5,12 @@
 @each $breakpoint in map-keys($grid-breakpoints) {
     @include media-breakpoint-up($breakpoint) {
         $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+        $onoff: 1;
   
         @each $value in $directions {
-            .rounded#{$infix}-#{$value} { border-#{$value}-radius: $border-radius !important; }
+            @for $i from 0 through $onoff {
+                .rounded#{$infix}-#{$value}-#{$i} { border-#{$value}-radius: #{if($i == 0, "0", $border-radius)}; }
+            }
         }
     }
 }
